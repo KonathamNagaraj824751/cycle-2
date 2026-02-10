@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Manipulation with RegEx</title>
+    <style>
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header,
+footer {
+    background-color: lightcoral;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+    background-color: lightblue;
+}
+
+textarea,
+input {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    background-color: lightseagreen;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px;
+    color: white;
+}
+
+button:hover {
+    background-color: greenyellow;
+    color: black;
+}
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Text Manipulation with RegEx</h1>
+</header>
+
+<main>
+
+    <textarea id="inputText" placeholder="Enter your text here..." rows="10" cols="50"></textarea>
+
+    <br><br>
+
+    <label for="searchText">Search for:</label>
+    <input type="text" id="searchText" placeholder="Enter search term">
+
+    <label for="replaceText">Replace with:</label>
+    <input type="text" id="replaceText" placeholder="Enter replacement text">
+
+    <br><br>
+
+    <button onclick="performSearch()">Search</button>
+    <button onclick="performReplace()">Replace</button>
+    <button onclick="performFormat()">Format</button>
+
+    <div id="results">
+        <h2>Results</h2>
+        <textarea id="outputText" placeholder="Result will be displayed here..." rows="10" cols="50" readonly></textarea>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 Text Manipulation with RegEx. All rights reserved.</p>
+</footer>
+    <script>
+        function performSearch() {
+    var inputText = document.getElementById("inputText").value;
+    var searchText = document.getElementById("searchText").value;
+    var resultText = document.getElementById("outputText");
+
+    try {
+        var matches = inputText.match(new RegExp(searchText, "g"));
+        resultText.value = matches ? matches.join("\n") : "No matches found";
+    } catch (error) {
+        resultText.value = "Invalid regular expression";
+    }
+}
+
+function performReplace() {
+    var inputText = document.getElementById("inputText").value;
+    var searchText = document.getElementById("searchText").value;
+    var replaceText = document.getElementById("replaceText").value;
+    var resultText = document.getElementById("outputText");
+
+    try {
+        resultText.value = inputText.replace(
+            new RegExp(searchText, "g"),
+            replaceText
+        );
+    } catch (error) {
+        resultText.value = "Invalid regular expression";
+    }
+}
+
+function performFormat() {
+    var inputText = document.getElementById("inputText").value;
+    var resultText = document.getElementById("outputText");
+
+    resultText.value = inputText.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
