@@ -1,0 +1,90 @@
+<<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Number Generator</title>
+  <style>
+    
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header,
+footer {
+  background-color: lightcoral;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+  text-align: center;
+  background-color: lightblue;
+}
+
+button {
+  padding: 10px;
+  background-color: lightgreen;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#randomNumber {
+  font-weight: bold;
+  margin: 20px;
+}
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Welcome to the Random Number Generator</h1>
+  </header>
+
+  <main>
+    <button onclick="generateRandomNumber()">Generate Random Number</button>
+    <div id="randomNumber"></div>
+
+    <button id="addItem" onclick="addItem()">Add Item</button>
+    <button id="removeItem" onclick="removeItem()">Remove Item</button>
+
+    <ul id="itemList"></ul>
+  </main>
+
+  <footer>
+    &copy; 2025 Random Number Generator
+  </footer>
+  <script>
+    function generateRandomNumber() {
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
+  const numDisplay = document.getElementById("randomNumber");
+
+  numDisplay.innerHTML = "";
+
+  const newPara = document.createElement("p");
+  newPara.innerHTML = "Random Number: " + randomNumber;
+
+  numDisplay.appendChild(newPara);
+}
+
+function addItem() {
+  const itemList = document.getElementById("itemList");
+  const newItem = document.createElement("li");
+
+  newItem.innerHTML = "Item " + (itemList.children.length + 1);
+  itemList.appendChild(newItem);
+}
+
+function removeItem() {
+  const itemList = document.getElementById("itemList");
+
+  if (itemList.children.length > 0) {
+    itemList.removeChild(itemList.lastChild);
+  }
+}
+  </script>
+</body>
+</html>
