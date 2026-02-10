@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: lightcoral;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #f9f9f9;
+}
+
+#product-list,
+#cart {
+    width: 45%;
+}
+
+.product,
+#cartItems li {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: lightcoral;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkred;
+}
+
+#totalPrice {
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sample Shopping Cart</h1>
+</header>
+
+<main>
+
+    <section id="product-list">
+        <h2>Products</h2>
+
+        <div class="product">
+            <span>Product 1</span>
+            <button onclick="addToCart('Product 1', 10)">
+                Add to Cart (Rs. 10)
+            </button>
+        </div>
+
+        <div class="product">
+            <span>Product 2</span>
+            <button onclick="addToCart('Product 2', 15)">
+                Add to Cart (Rs. 15)
+            </button>
+        </div>
+
+        <div class="product">
+            <span>Product 3</span>
+            <button onclick="addToCart('Product 3', 20)">
+                Add to Cart (Rs. 20)
+            </button>
+        </div>
+    </section>
+
+    <section id="cart">
+        <h2>Your Cart</h2>
+        <ul id="cartItems">
+            <!-- Cart items will be added here -->
+        </ul>
+        <p id="totalPrice">Total Price: Rs. 0</p>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2024 Shopping Cart Example</p>
+</footer>
+
+<script>
+    let cart = [];
+
+function addToCart(name, price) {
+    let item = cart.find(item => item.name === name);
+
+    if (item) {
+        item.quantity += 1;
+    } else {
+        cart.push({ name: name, price: price, quantity: 1 });
+    }
+
+    updateCart();
+}
+
+function removeFromCart(name) {
+    cart = cart.filter(item => item.name !== name);
+    updateCart();
+}
+
+function updateQuantity(name, quantity) {
+    let item = cart.find(item => item.name === name);
+
+    if (item) {
+        item.quantity = parseInt(quantity);
+
+        if (item.quantity <= 0) {
+            removeFromCart(name);
+        } else {
+            updateCart();
+        }
+    }
+}
+
+function updateCart() {
+    let cartItems = document.getElementById("cartItems");
+    cartItems.innerHTML = "";
+
+    cart.forEach(item => {
+        let li = document.createElement("li");
+        li.innerHTML = `
+            ${item.name} - Rs.${item.price} x ${item.quantity}
+            <button onclick="removeFromCart('${item.name}')">Remove</button>
+            <input type="number" value="${item.quantity}" min="0"
+                   onchange="updateQuantity('${item.name}', this.value)">
+        `;
+        cartItems.appendChild(li);
+    });
+
+    let totalPrice = cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+    );
+
+    document.getElementById("totalPrice").innerHTML =
+        `Total Price: Rs. ${totalPrice}`;
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
